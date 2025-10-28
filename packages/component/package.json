@@ -47,7 +47,6 @@
     }
   },
   "dependencies": {
-    "@arco-design/color": "^0.4.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
     "lodash": "npm:lodash-es@^4.17.21",
