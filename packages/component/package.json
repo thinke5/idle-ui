@@ -9,7 +9,7 @@
       "import": "./src/index.tsx"
     },
     "./components/*": {
-      "types": "./src/components/*",
+      "types": "./src/components/*/index.tsx",
       "import": "./src/components/*"
     },
     "./README.md": {

@@ -59,10 +59,9 @@ export interface BaseButtonProps {
    */
   block?: boolean
   /**
-   * @zh 点击按钮的回调
-   * @en Callback fired when the button is clicked
+   * 点击按钮的回调, 当返回`Promise`时会自动进入loading状态
    */
-  onClick?: (e: Event) => void | Promise<any>
+  onClick?: (event: Event) => void
 }
 
 export type ButtonProps = (

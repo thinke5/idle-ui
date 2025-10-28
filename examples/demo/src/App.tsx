@@ -1,4 +1,4 @@
-import { Button } from '@thinke/idle-ui'
+import { Button } from '@thinke/idle-ui/components/Button'
 import { createSignal } from 'solid-js'
 import solidLogo from './assets/solid.svg'
 import './App.css'
@@ -19,10 +19,17 @@ function App() {
         </a>
       </div>
       <h1>Vite + Solid</h1>
+      {/* <Space>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+      </Space> */}
       <div class="card">
-        <Button onClick={() => setCount(count => count + 1)}>
+
+        <Button color="secondary" variant="solid" onClick={() => setCount(count => count + 1)}>
           count is {count()}
         </Button>
+
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
