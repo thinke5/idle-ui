@@ -1,0 +1,62 @@
+{
+  "name": "@thinke/idle-ui",
+  "type": "module",
+  "version": "0.0.4",
+  "description": "description",
+  "exports": {
+    ".": {
+      "types": "./src/index.tsx",
+      "import": "./src/index.tsx"
+    },
+    "./components/*": {
+      "types": "./src/components/*",
+      "import": "./src/components/*"
+    },
+    "./README.md": {
+      "import": "./README.md"
+    }
+  },
+  "files": [
+    "README.md",
+    "package.json",
+    "src/"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "check:ts": "tsc",
+    "release": "bumpp -y && npm publish"
+  },
+  "peerDependencies": {
+    "clsx": ">=2.1.1",
+    "dayjs": ">=1.11.18",
+    "lodash": ">=4.17.21",
+    "solid-js": ">=1.9"
+  },
+  "peerDependenciesMeta": {
+    "clsx": {
+      "optional": true
+    },
+    "dayjs": {
+      "optional": true
+    },
+    "lodash": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@arco-design/color": "^0.4.0",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.18",
+    "lodash": "npm:lodash-es@^4.17.21",
+    "solid-js": "^1.9.9"
+  },
+  "devDependencies": {
+    "@thinke/idle-ui": "workspace:*",
+    "@thinke/idle-ui-docs": "workspace:*",
+    "bumpp": "^10.3.1"
+  },
+  "pnpm": {}
+}

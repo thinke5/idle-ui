@@ -1,0 +1,58 @@
+@import '../../_style/config.less';
+
+@btn-cls: ~'@{prefix}-icon';
+
+.@{btn-cls} {
+  width: 1em;
+  height: 1em;
+  aspect-ratio: 1;
+  vertical-align: -0.125em; // 可以与文字保持居中
+  flex-shrink: 0; // 防止在flex容器中被挤压
+  min-width: 1em; // 确保最小宽度不被压缩
+  display: inline-block;
+
+  overflow: hidden;
+  // pointer-events: none;
+
+  :where(&) {
+    color: inherit;
+  }
+
+  &>svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  &:has(>svg) {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+  }
+
+
+  &-mask {
+    -webkit-mask: var(--icon-url) no-repeat;
+    mask: var(--icon-url) no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    background-color: currentColor;
+  }
+
+
+  // &,
+  &>* {
+    line-height: 1;
+  }
+
+  &-spin {
+    animation: keyframeSpin 1s infinite linear;
+  }
+
+}
+
+@keyframes keyframeSpin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

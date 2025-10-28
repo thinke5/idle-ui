@@ -1,0 +1,63 @@
+# 按钮 Button
+
+按钮是一种命令组件，可发起一个即时操作。
+
+<code
+  src="./__demo__/basic.tsx"
+  title="基本用法"
+  desc="按钮分为 主要按钮、次要按钮、虚线按钮、线形按钮和文本按钮五种。"
+/>
+
+<code
+  src="./__demo__/color.tsx"
+  title="按钮颜色"
+  propsController={{
+    shape: ['rectangle', 'round', 'square', 'circle'],
+    size: ['md', 'xs', 'sm', 'lg', 'xl'],
+    loading: false,
+    disabled: false,
+    darkBg: false,
+  }}
+>
+  同时设置 `color` 和 `variant` 属性，可以衍生出更多的变体按钮。
+</code>
+
+<code src="./__demo__/loading.tsx" title="加载中" propsController={{ loading: true, loadingFixedWidth: false }} iframe>
+  当`onClick`为异步函数时，按钮会自动显示加载状态。配置`loadingFixedWidth` 使按钮加载状态的宽度保持不变。
+</code>
+
+<code src="./__demo__/size.tsx" title="按钮尺寸">
+  按钮分为：按钮有各种尺寸。 推荐及默认为尺寸`md`。可在不同场景及不同业务需求选择适合尺寸。
+</code>
+
+<code src="./__demo__/shape.tsx" title="按钮形状">
+  Button 有多种形状，`rectangle` - 长方形 **(默认)** ,`square` - 正方形, `circle` - 圆形, `round` - 全圆角。
+</code>
+
+<code src="./__demo__/icon.tsx" title="图标按钮">
+  Button 可以嵌入图标，在只设置图标而没有 `children` 时，按钮的高宽相等。
+</code>
+
+<code src="./__demo__/disabled.tsx" title="禁用按钮" propsController={{ disabled: true }} />
+
+<code src="./__demo__/block.tsx" title="长按钮" propsController={{ width: [460, 600, 700] }}>
+  按钮宽度随着容器宽度进行适配。
+</code>
+
+<code src="./__demo__/href.tsx" title="按钮链接">
+  添加跳转链接，设置`href`属性，使用a标签渲染。默认 **variant** 为 `link`
+</code>
+
+<code
+  src="./__demo__/button-group.tsx"
+  title="组合按钮"
+  propsController={{
+    color: [undefined, 'neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+  }}
+>
+  可用`ButtonGroup`在同级多项操作，以按钮组合方式出现。
+</code>
+
+## API
+
+<docgen src="./index.tsx" />

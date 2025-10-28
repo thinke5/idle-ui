@@ -1,0 +1,28 @@
+# 间距 Space
+
+设置组件之间的间距。
+
+<code src="./__demo__/basic.tsx" title="基本用法" desc="" />
+
+<code src="./__demo__/align.tsx" title="对齐"
+ propsController={{ align: ['center', 'start', 'end', 'baseline'],direction:["horizontal","vertical"] }}>
+  内置 4 种对齐方式，分别为 `start` `center` `end` `baseline`，在水平模式下默认为 `center`。
+</code>
+
+<code src="./__demo__/size.tsx" title="尺寸"
+ propsController={{ size: ['xs' , 'sm' , 'md' , 'lg','xl' , 50,100]  }}>
+内置 4 个尺寸，`xs - 4px` `sm - 8px (默认)` `md - 16px` `lg - 24px` `xl - 32px`，也支持传数字来自定义尺寸。
+</code>
+
+<code src="./__demo__/wrap.tsx" title="环绕间距"
+ propsController={{wrap:true ,size: {"[8,16]":[8,16],"[32,64]":[32,64],"[8,64]":[8,64]}  }}>
+环绕类型的间距，四周都有间距，一般用于换行的场景。
+</code>
+
+<code src="./__demo__/split.tsx" title="分隔符">
+为相邻子元素设置分隔符。
+</code>
+
+## API
+
+<docgen src="./index.tsx" />
