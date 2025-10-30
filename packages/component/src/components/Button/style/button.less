@@ -223,8 +223,8 @@
 
       // outline-color: currentColor;
       &:hover {
-        --btn-fg: oklch(from @btn-color-content calc(l * 0.7) c h);
-        // --btn-fg: color-mix(in oklab, var(--btn-color) 50%, black 60%);
+        // --btn-fg: color-mix(in oklab, var(--btn-color) 50%, var(--color-base-content) 40%);
+        --btn-bg: color-mix(in oklab, @btn-color-content 7%, transparent);
 
         &:is(.@{btn-cls}-active, :active:focus, :focus-visible) {
           --btn-bg: color-mix(in oklab, @btn-color-content 15%, transparent);
