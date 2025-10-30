@@ -12,6 +12,10 @@
       "types": "./src/components/*/index.tsx",
       "import": "./src/components/*"
     },
+    "./es/*": {
+      "types": "./src/components/*/index.tsx",
+      "import": "./src/components/*"
+    },
     "./README.md": {
       "import": "./README.md"
     }

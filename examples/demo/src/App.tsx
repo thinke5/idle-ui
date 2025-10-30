@@ -1,13 +1,14 @@
-import { Button } from '@thinke/idle-ui/components/Button'
+import { Button } from '@thinke/idle-ui'
+// import { Button } from '@thinke/idle-ui/components/Button'
 import { createSignal } from 'solid-js'
 import solidLogo from './assets/solid.svg'
-import './App.css'
 
+import './App.css'
 import viteLogo from '/vite.svg'
 
 function App() {
   const [count, setCount] = createSignal(0)
-
+  // debugger
   return (
     <>
       <div>

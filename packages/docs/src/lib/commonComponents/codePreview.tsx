@@ -1,9 +1,6 @@
 import type { JSXElement } from 'solid-js'
 import { createSignal, lazy, Show, Suspense } from 'solid-js'
-import { Dynamic, isServer } from 'solid-js/web'
-import Frame from '../common/solid-frame-component'
-// import { CodeView } from '../common/CodeView'
-// import { PropsController } from './PropsController'
+import { Dynamic } from 'solid-js/web'
 import './codePreview.less'
 
 const CodeView = lazy(() => import('../common/CodeView'))
