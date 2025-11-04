@@ -1,7 +1,7 @@
 {
   "name": "@thinke/idle-ui",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "description",
   "exports": {
     ".": {
@@ -34,12 +34,16 @@
     "release": "bumpp -y && npm publish"
   },
   "peerDependencies": {
+    "@ark-ui/solid": ">=5",
     "clsx": ">=2.1.1",
     "dayjs": ">=1.11.18",
     "lodash": ">=4.17.21",
     "solid-js": ">=1.9"
   },
   "peerDependenciesMeta": {
+    "@ark-ui/solid": {
+      "optional": true
+    },
     "clsx": {
       "optional": true
     },
