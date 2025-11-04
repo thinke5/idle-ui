@@ -1,7 +1,7 @@
 {
   "name": "@thinke/idle-ui",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "description",
   "exports": {
     ".": {
@@ -51,6 +51,7 @@
     }
   },
   "dependencies": {
+    "@ark-ui/solid": "^5.27.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
     "lodash": "npm:lodash-es@^4.17.21",
@@ -59,6 +60,7 @@
   "devDependencies": {
     "@thinke/idle-ui": "workspace:*",
     "@thinke/idle-ui-docs": "workspace:*",
+    "@types/lodash": "^4.17.20",
     "bumpp": "^10.3.1"
   },
   "pnpm": {}
