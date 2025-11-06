@@ -1,6 +1,6 @@
 import type { JSX } from 'solid-js'
 
-export type SpaceSizeEnum = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number
+export type SpaceSizeEnum = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number | string
 export type SpaceSize = SpaceSizeEnum | SpaceSizeEnum[]
 /**
  * @title Space
@@ -18,7 +18,7 @@ export interface SpaceProps {
    */
   direction?: 'vertical' | 'horizontal'
   /**
-   * @zh 尺寸。
+   * @zh 尺寸, 类似 flex布局的 `gap`属性
    * @en The space size.
    * @defaultValue "small"
    */

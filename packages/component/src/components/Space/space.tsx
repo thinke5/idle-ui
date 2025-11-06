@@ -5,7 +5,7 @@ import { For, mergeProps, Show, splitProps } from 'solid-js'
 import { useChildrenArray } from '../_utils/children'
 import { useConfig } from '../ConfigProvider'
 
-const splitPropsKeys = ['children', 'class', 'size', 'direction', 'align', 'wrap', 'split'] as const
+const splitPropsKeys = ['children', 'class', 'size', 'direction', 'align', 'wrap', 'split', 'style'] as const
 
 function isNumber(value: any): value is number {
   return typeof value === 'number'
@@ -15,24 +15,23 @@ function isArray(value: any): value is any[] {
   return Array.isArray(value)
 }
 
-function getMargin(size: any): number {
+const gapMap: Record<string, string> = {
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+}
+
+function getGap(size: any): string {
+  const gap = gapMap[size]
+  if (gap) {
+    return gap
+  }
   if (isNumber(size)) {
-    return size
+    return `${size}px`
   }
-  switch (size) {
-    case 'xs':
-      return 4
-    case 'sm':
-      return 8
-    case 'md':
-      return 16
-    case 'lg':
-      return 24
-    case 'xl':
-      return 32
-    default:
-      return 8
-  }
+  return size
 }
 
 const defaultSpaceProps: SpaceProps = {
@@ -40,7 +39,7 @@ const defaultSpaceProps: SpaceProps = {
   direction: 'horizontal',
   wrap: false,
 }
-
+/** 间距 */
 export function Space(_props: SpaceProps) {
   const config = useConfig()
   const props = mergeProps(defaultSpaceProps, _props)
@@ -62,64 +61,31 @@ export function Space(_props: SpaceProps) {
   )
 
   const childrenList = useChildrenArray(() => local.children)
-
-  function getMarginStyle(index: number): JSX.CSSProperties {
-    const isLastOne = childrenList().length === index + 1
-    const marginDirection = config.rtl ? 'margin-left' : 'margin-right'
-    const direction = local.direction
+  const gapKey = `--${prefixCls}-gap`
+  function getGapValue(): JSX.CSSProperties {
     const size = local.size
-    const wrap = local.wrap
 
     if (typeof size === 'string' || typeof size === 'number') {
-      const margin = getMargin(size)
-      if (wrap) {
-        return isLastOne
-          ? { 'margin-bottom': `${margin}px` }
-          : {
-              [`${marginDirection}`]: `${margin}px`,
-              'margin-bottom': `${margin}px`,
-            }
-      }
-
-      return !isLastOne
-        ? {
-            [direction === 'vertical' ? 'margin-bottom' : marginDirection]: `${margin}px`,
-          }
-        : {}
+      return { [gapKey]: getGap(size) }
     }
 
     if (isArray(size)) {
-      const marginHorizontal = getMargin(size[0])
-      const marginBottom = getMargin(size[1])
-      if (wrap) {
-        return isLastOne
-          ? { 'margin-bottom': `${marginBottom}px` }
-          : {
-              [`${marginDirection}`]: `${marginHorizontal}px`,
-              'margin-bottom': `${marginBottom}px`,
-            }
-      }
-      if (direction === 'vertical') {
-        return { 'margin-bottom': `${marginBottom}px` }
-      }
-      return { [`${marginDirection}`]: `${marginHorizontal}px` }
+      return { [gapKey]: size.reverse().map(getGap).join(' ') }
     }
 
     return {}
   }
 
   return (
-    <div class={classNames()} {...others}>
+    <div class={classNames()} style={{ ...getGapValue(), ...local.style }} {...others}>
       <For each={childrenList()}>
         {(child, index) => {
           return (
             <>
-              <Show when={local.split && index() > 0}>
-                <div class={`${prefixCls}-item-split`} style={getMarginStyle(index() - 1)}>{local.split}</div>
+              <Show when={'split' in local && index() > 0}>
+                <div class={`${prefixCls}-item-split`}>{local.split}</div>
               </Show>
-              <div class={`${prefixCls}-item`} style={getMarginStyle(index())}>
-                {child}
-              </div>
+              {child}
             </>
           )
         }}

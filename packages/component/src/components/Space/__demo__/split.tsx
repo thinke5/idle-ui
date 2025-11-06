@@ -3,7 +3,7 @@ import { Button, Space } from '@thinke/idle-ui'
 export default () => {
   return (
     <>
-      <Space split={<span class="text-red-6 text-xl">-</span>}>
+      <Space split={<span class="text-red-600 text-xl">-</span>}>
         <Button>Button</Button>
         <Button>Button</Button>
         <Button>Button</Button>
