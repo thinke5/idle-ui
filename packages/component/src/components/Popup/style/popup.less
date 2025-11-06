@@ -1,0 +1,259 @@
+@import '../../_style/config.less';
+
+@dialog-cls: ~'@{prefix}-popup';
+
+// 动画变量统一管理
+@popup-animation-duration-in: 0.25s;
+@popup-animation-duration-out: 0.2s;
+@popup-easing-in-out: ease-in-out;
+@popup-easing-out: ease-out;
+@popup-easing-in: ease-in;
+@center-scale: 0.25;
+
+:where(.@{dialog-cls} [data-scope='dialog']) {
+
+  // 遮罩层样式
+  &:where([data-part='backdrop']) {
+    background-color: color-mix(in oklab, var(--color-base-content) 30%, transparent);
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(var(--backdrop-blur, 4px));
+    z-index: var(--z-index);
+    will-change: opacity; // 性能优化
+
+    &[data-state='open'] {
+      animation: popupFadeIn @popup-animation-duration-in @popup-easing-out;
+    }
+
+    &[data-state='closed'] {
+      animation: popupFadeOut @popup-animation-duration-out @popup-easing-in;
+    }
+  }
+
+  // 定位器样式
+  &:where([data-part='positioner']) {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-index);
+  }
+
+  // 对话框内容容器
+  &:where([data-part='content']) {
+    background-color: var(--color-base-100);
+    border-radius: var(--radius-box-top-left, var(--radius-box)) var(--radius-box-top-right, var(--radius-box)) var(--radius-box-bottom-right, var(--radius-box)) var(--radius-box-bottom-left, var(--radius-box));
+    border: var(--border) solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
+    box-shadow:
+      0 10px 38px -10px color-mix(in oklab, var(--color-base-content) 35%, transparent),
+      0 10px 20px -15px color-mix(in oklab, var(--color-base-content) 20%, transparent);
+    padding: var(--dialog-p, 1.5rem);
+    position: relative;
+    z-index: calc(var(--z-index-popup-base) + var(--layer-index));
+    transition: transform 0.2s ease-in-out;
+    overflow: auto;
+    will-change: transform, opacity; // 性能优化
+
+    // 嵌套对话框支持
+    &[data-has-nested] {
+      transform: scale(calc(1 - var(--nested-layer-count) * 0.05));
+    }
+  }
+
+  // 标题样式
+  &:where([data-part='title']) {
+    margin: 0;
+    font-weight: bold;
+    color: var(--color-base-content);
+    font-size: 1.125rem;
+  }
+
+  // 描述样式
+  &:where([data-part='description']) {
+    margin: 0.625rem 0 1.25rem;
+    color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    overflow: auto;
+  }
+
+  // 关闭按钮样式
+  &[data-part='close-trigger'][data-scope='dialog'] {
+    --fontsize: 1.25rem;
+  }
+}
+
+// 位置样式类 - 使用统一的动画变量
+.@{dialog-cls}-center {
+  :where([data-part='positioner']) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  :where([data-part='content']) {
+    &[data-state='open'] {
+      animation: popupScaleInFromCenter @popup-animation-duration-in @popup-easing-in-out;
+    }
+
+    &[data-state='closed'] {
+      animation: popupScaleOutToCenter @popup-animation-duration-out @popup-easing-in-out;
+    }
+  }
+}
+
+.@{dialog-cls}-top {
+  :where([data-part='positioner']) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  :where([data-part='content']) {
+    --radius-box-top-left: 0;
+    --radius-box-top-right: 0;
+
+    width: 100%;
+
+    &[data-state='open'] {
+      animation: popupSlideInFromTop @popup-animation-duration-in @popup-easing-out;
+    }
+
+    &[data-state='closed'] {
+      animation: popupSlideOutToTop @popup-animation-duration-out @popup-easing-in;
+    }
+  }
+}
+
+.@{dialog-cls}-bottom {
+  :where([data-part='positioner']) {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  [data-part='content'] {
+    --radius-box-bottom-left: 0;
+    --radius-box-bottom-right: 0;
+
+    width: 100%;
+
+    &[data-state='open'] {
+      animation: popupSlideInFromBottom @popup-animation-duration-in @popup-easing-out;
+    }
+
+    &[data-state='closed'] {
+      animation: popupSlideOutToBottom @popup-animation-duration-out @popup-easing-in;
+    }
+  }
+}
+
+.@{dialog-cls}-left {
+  :where([data-part='positioner']) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  :where([data-part='content']) {
+    --radius-box-top-left: 0;
+    --radius-box-bottom-left: 0;
+
+    width: fit-content;
+    height: 100%;
+
+    &[data-state='open'] {
+      animation: popupSlideInFromLeft @popup-animation-duration-in @popup-easing-out;
+    }
+
+    &[data-state='closed'] {
+      animation: popupSlideOutToLeft @popup-animation-duration-out @popup-easing-in;
+    }
+  }
+}
+
+.@{dialog-cls}-right {
+  :where([data-part='positioner']) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  :where([data-part='content']) {
+    --radius-box-top-right: 0;
+    --radius-box-bottom-right: 0;
+
+    width: fit-content;
+    height: 100%;
+
+    &[data-state='open'] {
+      animation: popupSlideInFromRight @popup-animation-duration-in @popup-easing-out;
+    }
+
+    &[data-state='closed'] {
+      animation: popupSlideOutToRight @popup-animation-duration-out @popup-easing-in;
+    }
+  }
+}
+
+
+
+// 动画混合器
+.popup-fade-animation-mixin(@name, @from-opacity, @to-opacity) {
+  @keyframes @name {
+    from {
+      opacity: @from-opacity;
+    }
+
+    to {
+      opacity: @to-opacity;
+    }
+  }
+}
+
+.popup-slide-animation-mixin(@name, @type, @from-translate, @to-translate) {
+  @keyframes @name {
+    from {
+      opacity: if(@type =in, 0, 1);
+      transform: @from-translate;
+    }
+
+    to {
+      opacity: if(@type =in, 1, 0);
+      transform: @to-translate;
+    }
+  }
+}
+
+.popup-scale-animation-mixin(@name, @from-scale, @to-scale) {
+  @keyframes @name {
+    from {
+      opacity: if(@from-scale =1, 1, 0);
+      scale: @from-scale;
+    }
+
+    to {
+      opacity: if(@to-scale =1, 1, 0);
+      scale: @to-scale;
+    }
+  }
+}
+
+// 应用动画混合器
+.popup-fade-animation-mixin(popupFadeIn, 0, 1);
+.popup-fade-animation-mixin(popupFadeOut, 1, 0);
+
+.popup-scale-animation-mixin(popupScaleInFromCenter, @center-scale, 1);
+.popup-scale-animation-mixin(popupScaleOutToCenter, 1, @center-scale);
+
+.popup-slide-animation-mixin(popupSlideInFromTop, in, translateY(-100%), translateY(0));
+.popup-slide-animation-mixin(popupSlideOutToTop, out, translateY(0), translateY(-100%));
+
+.popup-slide-animation-mixin(popupSlideInFromBottom, in, translateY(100%), translateY(0));
+.popup-slide-animation-mixin(popupSlideOutToBottom, out, translateY(0), translateY(100%));
+
+.popup-slide-animation-mixin(popupSlideInFromLeft, in, translateX(-100%), translateX(0));
+.popup-slide-animation-mixin(popupSlideOutToLeft, out, translateX(0), translateX(-100%));
+
+.popup-slide-animation-mixin(popupSlideInFromRight, in, translateX(100%), translateX(0));
+.popup-slide-animation-mixin(popupSlideOutToRight, out, translateX(0), translateX(100%));

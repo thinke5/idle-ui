@@ -41,6 +41,18 @@ export default defineConfig({
 })
 ```
 
+<!-- ## SSR
+
+在vite 进行SSR时需要额外配置
+
+```ts
+const viteConfig = {
+  resolve: {
+    noExternal: ['@ark-ui/solid'],
+  }
+}
+``` -->
+
 ## 参考
 
 1. [daisyui](https://daisyui.com/)

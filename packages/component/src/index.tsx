@@ -1,4 +1,6 @@
 export * from './components/Button'
 export * from './components/ButtonGroup'
+export * from './components/Dialog'
 export * from './components/Icon'
+export * from './components/Popup'
 export * from './components/Space'

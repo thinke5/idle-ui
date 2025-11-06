@@ -29,7 +29,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "check:ts": "tsc",
     "release": "bumpp -y && npm publish"
   },
@@ -64,6 +63,7 @@
   "devDependencies": {
     "@thinke/idle-ui": "workspace:*",
     "@thinke/idle-ui-docs": "workspace:*",
+    "@thinke/idle-ui-docs-2": "workspace:*",
     "@types/lodash": "^4.17.20",
     "bumpp": "^10.3.1"
   },

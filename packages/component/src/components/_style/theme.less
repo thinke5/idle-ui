@@ -1,3 +1,7 @@
+:where(:root) {
+  --z-index-popup-base: 1000;
+}
+
 :where(:root, [data-theme="light"], .light),
 :root:has(input.theme-controller[value=light]:checked) {
   color-scheme: light;
