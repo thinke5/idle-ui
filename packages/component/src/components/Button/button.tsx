@@ -19,12 +19,16 @@ const defaultButtonProps: ButtonProps = {
 /** 按钮 */
 export function Button(_props: ButtonProps) {
   const config = useConfig()
+
+  // 不能直接读取会导致水合错误 https://github.com/solidjs/solid/issues/2558
+  const hasIcon = () => 'icon' in _props
+
   const props = mergeProps(
     defaultButtonProps,
     {
       size: config.size,
-      variant: _props.href ? 'link' : undefined,
-      shape: _props.icon && !_props.children ? 'square' : undefined,
+      variant: _props.href ? 'link' : undefined, // _props.color ? undefined : 'solid',
+      shape: hasIcon() && !_props.children ? 'square' : undefined,
     },
     _props,
   )
@@ -43,7 +47,7 @@ export function Button(_props: ButtonProps) {
     {
       [`${prefixCls}-${local.variant}`]: local.variant,
       [`${prefixCls}-${local.color}`]: local.color,
-      [`${prefixCls}-has-icon`]: local.icon,
+      [`${prefixCls}-has-icon`]: hasIcon(),
       [`${prefixCls}-disabled`]: disabled(),
       [`${prefixCls}-block`]: local.block,
       [`${prefixCls}-loading`]: loading(),
@@ -69,7 +73,6 @@ export function Button(_props: ButtonProps) {
       }
     }
   }
-
   return (
     <Dynamic
       component={props.href ? 'a' : 'button'}
