@@ -1,31 +1,53 @@
-import type { QueryClient } from '@tanstack/solid-query'
-import { createRootRouteWithContext, HeadContent, Outlet } from '@tanstack/solid-router'
-import Siber from '~/components/Siber'
-import ErrorComponent from '~/lib/commonComponents/ErrorComponent'
-import NotFound from '~/lib/commonComponents/NotFound'
-import MdxProvider from '~/lib/mdx/mdx-provider'
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Link,
+  Outlet,
+  Scripts,
+} from '@tanstack/solid-router'
+// import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
+import { Suspense } from 'solid-js'
+import { HydrationScript } from 'solid-js/web'
+import ErrorComponent from '~/components/ErrorComponent.tsx'
+import MdxProvider from '~/lib/mdx/mdx-provider.tsx'
+import Header from '../components/Header.tsx'
+import TanStackQueryProvider from '../integrations/tanstack-query/provider.tsx'
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  component: RootComponent,
+export const Route = createRootRouteWithContext()({
   head: () => ({
-    meta: [
-      { title: 'IDLE UI' },
-    ],
+    // links: [{ rel: 'stylesheet', href: styleCss }],
+    meta: [{ title: 'IDLE UI' }],
   }),
-  notFoundComponent: NotFound,
+  shellComponent: RootComponent,
   errorComponent: ErrorComponent,
-  pendingComponent: () => <div class="s-full f-c/c"><i class="i-mdi:loading animate-spin text-2xl text-blue" /></div>,
+  notFoundComponent: () => (
+    <div class="text-center f-c/c flex-col min-h-100vh">
+      <h1 class="text-16 m-0">404</h1>
+      <Link class="text-sm text-blue" to="/">HOME</Link>
+    </div>
+  ),
 })
 
-/** 根元素 */
 function RootComponent() {
-  return ([
-    <HeadContent />,
-    <MdxProvider>
-      <div class="grid grid-cols-[auto_1fr]">
-        <Siber />
-        <div class="overflow-auto p-2 pb-60 pt-1 h-dvh"><Outlet /></div>
-      </div>
-    </MdxProvider>,
-  ])
+  return (
+    <html>
+      <head>
+        <HydrationScript />
+      </head>
+      <body>
+        <HeadContent />
+        <Suspense>
+          <MdxProvider>
+            <TanStackQueryProvider>
+              <Header />
+
+              <Outlet />
+              {/* <TanStackRouterDevtools /> */}
+            </TanStackQueryProvider>
+          </MdxProvider>
+        </Suspense>
+        <Scripts />
+      </body>
+    </html>
+  )
 }

@@ -45,7 +45,7 @@ export function PropsController(props: {
   })
 
   return (
-    <div class="size-full p-xs">
+    <div class="p-xs size-full">
       <For each={configList()} fallback="调试配置错误">
         {(item) => {
           if (!store[item.key] && item.defaultValue) {
@@ -53,12 +53,12 @@ export function PropsController(props: {
           }
           const selectOptions = () => Array.isArray(item.options) ? item.options.map(v => [String(v), v]) : Object.entries(item.options || {})
           return (
-            <div class="my-1 w-full f-c/sb gap-1">
+            <div class="my-1 f-c/sb gap-1 w-full">
               <span class="">{item.label || item.key}</span>
               <Switch fallback={<span class="text-2">不支持的类型「{item.type}」</span>}>
                 <Match when={item.type === 'string' || item.type === 'number'}>
                   <input
-                    class="w-3/5 b-1 b-gray-1 b-solid px-1"
+                    class="px-1 b-1 b-gray-100 b-solid w-3/5"
                     type={item.type === 'number' ? 'number' : 'text'}
                     placeholder={item.label || item.key}
                     value={(store[item.key as any] as any) ?? ''}
@@ -73,7 +73,7 @@ export function PropsController(props: {
                 </Match>
                 <Match when={item.type === 'boolean'}>
                   <input
-                    class="w-3/5 b-1 b-gray-1 b-solid px-1"
+                    class="px-1 b-1 b-gray-100 b-solid w-3/5"
                     type="checkbox"
                     placeholder={item.label || item.key}
                     checked={(store[item.key as any] as any)}
@@ -86,7 +86,7 @@ export function PropsController(props: {
 
                 <Match when={item.type === 'select'}>
                   <select
-                    class="b-1 b-gray-2 b-solid"
+                    class="b-1 b-gray-200 b-solid"
                     value={selectOptions().findIndex(v => isEqual(v[1], store[item.key as any])) ?? 0}
                     onInput={(event) => {
                       const index = event.target.value

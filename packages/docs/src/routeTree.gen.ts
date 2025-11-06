@@ -8,15 +8,29 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
+import { Route as rootRouteImport } from './routes/__root.tsx'
+import { Route as MdxRouteImport } from './routes/mdx.tsx'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ComponentsSpaceRouteImport } from './routes/components/space'
-import { Route as ComponentsIconRouteImport } from './routes/components/icon'
-import { Route as ComponentsButtonRouteImport } from './routes/components/button'
+import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query.tsx'
+import { Route as ComponentsSpaceRouteImport } from './routes/components/space.tsx'
+import { Route as ComponentsPopupRouteImport } from './routes/components/popup.tsx'
+import { Route as ComponentsIconRouteImport } from './routes/components/icon.tsx'
+import { Route as ComponentsDialogRouteImport } from './routes/components/dialog.tsx'
+import { Route as ComponentsButtonRouteImport } from './routes/components/button.tsx'
 
+const MdxRoute = MdxRouteImport.update({
+  id: '/mdx',
+  path: '/mdx',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
+  id: '/demo/tanstack-query',
+  path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComponentsSpaceRoute = ComponentsSpaceRouteImport.update({
@@ -24,9 +38,19 @@ const ComponentsSpaceRoute = ComponentsSpaceRouteImport.update({
   path: '/components/space',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComponentsPopupRoute = ComponentsPopupRouteImport.update({
+  id: '/components/popup',
+  path: '/components/popup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ComponentsIconRoute = ComponentsIconRouteImport.update({
   id: '/components/icon',
   path: '/components/icon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComponentsDialogRoute = ComponentsDialogRouteImport.update({
+  id: '/components/dialog',
+  path: '/components/dialog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComponentsButtonRoute = ComponentsButtonRouteImport.update({
@@ -37,54 +61,100 @@ const ComponentsButtonRoute = ComponentsButtonRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/mdx': typeof MdxRoute
   '/components/button': typeof ComponentsButtonRoute
+  '/components/dialog': typeof ComponentsDialogRoute
   '/components/icon': typeof ComponentsIconRoute
+  '/components/popup': typeof ComponentsPopupRoute
   '/components/space': typeof ComponentsSpaceRoute
+  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/mdx': typeof MdxRoute
   '/components/button': typeof ComponentsButtonRoute
+  '/components/dialog': typeof ComponentsDialogRoute
   '/components/icon': typeof ComponentsIconRoute
+  '/components/popup': typeof ComponentsPopupRoute
   '/components/space': typeof ComponentsSpaceRoute
+  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/mdx': typeof MdxRoute
   '/components/button': typeof ComponentsButtonRoute
+  '/components/dialog': typeof ComponentsDialogRoute
   '/components/icon': typeof ComponentsIconRoute
+  '/components/popup': typeof ComponentsPopupRoute
   '/components/space': typeof ComponentsSpaceRoute
+  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/mdx'
     | '/components/button'
+    | '/components/dialog'
     | '/components/icon'
+    | '/components/popup'
     | '/components/space'
+    | '/demo/tanstack-query'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/components/button' | '/components/icon' | '/components/space'
+  to:
+    | '/'
+    | '/mdx'
+    | '/components/button'
+    | '/components/dialog'
+    | '/components/icon'
+    | '/components/popup'
+    | '/components/space'
+    | '/demo/tanstack-query'
   id:
     | '__root__'
     | '/'
+    | '/mdx'
     | '/components/button'
+    | '/components/dialog'
     | '/components/icon'
+    | '/components/popup'
     | '/components/space'
+    | '/demo/tanstack-query'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MdxRoute: typeof MdxRoute
   ComponentsButtonRoute: typeof ComponentsButtonRoute
+  ComponentsDialogRoute: typeof ComponentsDialogRoute
   ComponentsIconRoute: typeof ComponentsIconRoute
+  ComponentsPopupRoute: typeof ComponentsPopupRoute
   ComponentsSpaceRoute: typeof ComponentsSpaceRoute
+  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
 
 declare module '@tanstack/solid-router' {
   interface FileRoutesByPath {
+    '/mdx': {
+      id: '/mdx'
+      path: '/mdx'
+      fullPath: '/mdx'
+      preLoaderRoute: typeof MdxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/tanstack-query': {
+      id: '/demo/tanstack-query'
+      path: '/demo/tanstack-query'
+      fullPath: '/demo/tanstack-query'
+      preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/components/space': {
@@ -94,11 +164,25 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof ComponentsSpaceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/components/popup': {
+      id: '/components/popup'
+      path: '/components/popup'
+      fullPath: '/components/popup'
+      preLoaderRoute: typeof ComponentsPopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/components/icon': {
       id: '/components/icon'
       path: '/components/icon'
       fullPath: '/components/icon'
       preLoaderRoute: typeof ComponentsIconRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/components/dialog': {
+      id: '/components/dialog'
+      path: '/components/dialog'
+      fullPath: '/components/dialog'
+      preLoaderRoute: typeof ComponentsDialogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/components/button': {
@@ -113,10 +197,23 @@ declare module '@tanstack/solid-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MdxRoute: MdxRoute,
   ComponentsButtonRoute: ComponentsButtonRoute,
+  ComponentsDialogRoute: ComponentsDialogRoute,
   ComponentsIconRoute: ComponentsIconRoute,
+  ComponentsPopupRoute: ComponentsPopupRoute,
   ComponentsSpaceRoute: ComponentsSpaceRoute,
+  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/solid-start'
+declare module '@tanstack/solid-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

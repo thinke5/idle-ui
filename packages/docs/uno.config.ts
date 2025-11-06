@@ -1,12 +1,12 @@
 import wmlPreset from '@thinke/unocss-wml-preset'
-import { defineConfig, presetIcons, presetWind3, transformerVariantGroup } from 'unocss'
+import { defineConfig, presetIcons, presetWind4, transformerVariantGroup } from 'unocss'
 import presetAnimations from 'unocss-preset-animations'
 
 export default defineConfig({
   presets: [
     presetIcons(),
     presetAnimations(),
-    presetWind3({
+    presetWind4({
 
     }), // base
     wmlPreset({

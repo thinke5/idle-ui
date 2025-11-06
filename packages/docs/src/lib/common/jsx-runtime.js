@@ -1,7 +1,7 @@
 /* solid-js/h 无法在服务器里运行，所以自行实现 ，有问题再说 */
 
 import { createComponent, createContext, useContext } from 'solid-js'
-import { Dynamic } from 'solid-js/web'
+import { createDynamic, Dynamic } from 'solid-js/web'
 
 export const MDXContext = createContext(
   Object.create(null),
@@ -35,7 +35,8 @@ function Fragment (props) {
   return props.children
 }
 function jsx (type, props) {
-  return createComponent(Dynamic, { component: type, ...props })
+  return createDynamic(() => type, props)
+  // return createComponent(Dynamic, { component: type, ...props })
   // return h(type, props)
 }
 

@@ -27,26 +27,28 @@ export function CodePreview(props: {
     <div id={props.title}>
       {/* <a href={`#${props.title}`}></a> */}
       <h2>{props.title}</h2>
-      <Show when={desc()}><p class="m-0 text-sm">{desc()}</p></Show>
+      <Show when={desc()}><p class="text-sm m-0">{desc()}</p></Show>
       <Suspense>
-        <div class="grid grid-cols-[1fr_auto] b-1 b-gray-2 rd-1 b-solid">
+        <div class="b-1 b-gray-200 rd-1 b-solid grid grid-cols-[1fr_auto]">
           <Show when={props.preview?.default} fallback={<span class="text-red">预览的组件不存在，请确保组件在默认导出</span>}>
             {/* <Iframe class="h-full w-full b-none"> */}
-            <div class="overflow-auto p-xl">
+            <div class="p-xl overflow-auto">
               <Dynamic component={props.preview.default} {...param()} />
             </div>
             {/* </Iframe> */}
           </Show>
           <Show when={props.propsController}>
-            <div class="w-50 b-0 b-l-1 b-gray-2 b-dashed">
+            <div class="b-0 b-l-1 b-gray-200 b-dashed w-50">
               <Suspense>
                 <PropsController config={props.propsController!} onChange={setParam} />
               </Suspense>
             </div>
           </Show>
         </div>
-        <div class="f-c/e py-1">
-          <button class="rd b-none bg-sky-8 p-1 px-2 text-xs text-white" onClick={() => setShowCode(!showCode())}>{showCode() ? '🙈' : '🖥️' }</button>
+        <div class="py-1 f-c/e">
+          <button class="text-xs text-white p-1 px-2 rd b-none bg-sky-800" onClick={() => setShowCode(s => !s)}>
+            {showCode() ? '🙈' : '🖥️' }
+          </button>
         </div>
         <Show when={showCode()}>
           <Suspense>

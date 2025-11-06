@@ -1,31 +1,32 @@
 {
+
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
+
     "paths": {
       "~/*": ["./src/*"],
       "@/*": ["./src/*"]
     },
-    "resolveJsonModule": true,
-    // "types": ["solid-jsx/types"],
+    "types": ["vite/client"],
     "allowImportingTsExtensions": true,
     "allowJs": true,
-    /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noEmit": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+    "verbatimModuleSyntax": true,
+
+    /* Linting */
+    "skipLibCheck": true,
+    "noUncheckedSideEffectImports": true
   },
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "include": ["src"]
+  "include": ["**/*.ts", "**/*.tsx", "eslint.config.js", "prettier.config.js", "vite.config.js"]
 }

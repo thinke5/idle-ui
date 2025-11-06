@@ -1,0 +1,15 @@
+# 测试的 mdx
+
+测试的 mdx 测试的 mdx 测试的 mdx 测试的 mdx 测试的 mdx 测试的 mdx 测试的 mdx
+
+```tsx
+const a = 1;
+```
+
+```tsx preview title="Counter"
+import { createSignal } from "solid-js";
+export default function Counter() {
+  const [num, setNum] = createSignal(0);
+  return <button onClick={() => setNum((n) => n + 1)}>num = {num()}</button>;
+}
+```
